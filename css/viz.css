@@ -1,0 +1,17 @@
+.viz {
+  grid-area: viz;
+  width: 20vw;
+  border: 2px solid #7D12FF;
+  padding: 1%;
+}
+
+@media (max-width: 1300px) {
+  .viz {
+  }
+}
+
+@media (max-width: 1050px) {
+  .viz {
+    min-width: 85vw;
+  }
+}

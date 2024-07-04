@@ -1,0 +1,22 @@
+.rain {
+  grid-area: rain;
+  width: 20vw;
+  border: 2px solid #7D12FF;
+  padding: 1%;
+}
+
+@media (max-width: 1300px) {
+  .rain {
+    margin: 0 20vw 0 0;
+    min-width: 20vw;
+    max-height: 10vh;
+  }
+}
+
+@media (max-width: 1050px) {
+  .rain {
+    margin: 0;
+    min-width: 85vw;
+    max-height: 10vh;
+  }
+}

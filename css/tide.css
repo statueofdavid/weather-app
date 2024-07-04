@@ -1,0 +1,12 @@
+.tide {
+  grid-area: tide;
+  width: 20vw;
+  border: 2px solid #7D12FF;
+  padding: 1%;
+}
+
+@media (max-width: 1050px) {
+  .tide {
+    min-width: 85vw;
+  }
+}

@@ -1,0 +1,13 @@
+.wind {
+  grid-area: wind;
+  width: 20vw;
+  border: 2px solid #7D12FF;
+  padding: 1%;
+}
+
+@media (max-width: 1050px) {
+  .wind {
+    min-width: 85vw;
+    max-height: 10vh;
+  }
+}

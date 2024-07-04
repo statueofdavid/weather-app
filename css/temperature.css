@@ -1,0 +1,18 @@
+.temperature {
+  grid-area: temperature;
+  width: 20vw;
+  border: 2px solid #7D12FF;
+  padding: 1%;
+}
+
+@media (max-width: 1300px) {
+  .temperature {
+  }
+}
+
+@media (max-width: 1050px) {
+  .temperature {
+    min-width: 85vw;
+    max-height: 10vh;
+  }
+}

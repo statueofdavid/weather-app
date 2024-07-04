@@ -1,2 +1,5 @@
-# weather-app
-well started using the weather APIs and tide info for my kid's crew practice and well I feel like it is making my personal site a bit cluttered. Then I realized that the data was very static when I went up for a day trip to the mountains and I couldn't get weather info from my site. Lame... anyway running out of room so yeah.
+# david-bb-site
+a clear & concise site only using css and html, including animations. It is served by nginx running on an Ubuntu droplet. I manage the name service on Digital Ocean and the subdomain using nginx. Its ssl cert is from the EFF.
+
+The Goal of this project is to build a website as a sort of digital presence and document what I think it is to have a digital presence because I think it can mean many different things.
+## Go -> https://david.declared.space

@@ -1,0 +1,6 @@
+nav {
+  margin: 1vw;
+  gap: 1vw;
+  display: flex;
+  flex-flow: row wrap;
+}
