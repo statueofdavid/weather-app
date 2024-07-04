@@ -16,12 +16,12 @@
 
 @media (max-width: 1300px) {
   .poweredby {
-    width: 30vw;
+    width: 100vw;
   }
 }
 
 @media (max-width: 1050px) {
   .poweredby {
-    width: 30vw;
+    width: 100vw;
   }
 }

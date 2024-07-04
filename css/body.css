@@ -1,5 +1,10 @@
 * { box-sizing: border-box; }
 
+#permission-container, /* Firefox */
+#location-permission-container { /* Chrome */
+  display: none;
+}
+
 ul {list-style-type: none;}
 
 body {
@@ -41,14 +46,15 @@ body {
     justify-items: center;
     grid-gap: 5px;
     grid-template-areas:
-      'tagline profile tide'
-      'about profile light'
-      'about profile temperature'
-      'followme profile wind'
-      'followme cases rain'
-      'poweredby cases pressure'
-      'poweredby cases viz'
-      '. . .'
+      'banner'
+      'tide'
+      'light'
+      'temperature'
+      'wind'
+      'rain'
+      'pressure'
+      'viz'
+      'poweredby'
   }
 }
 
@@ -58,15 +64,15 @@ body {
     justify-items: start;
     grid-gap: 3px;
     grid-template-areas:
-      'tagline tagline light .'
-      'cases profile temperature .'
-      'cases profile wind .'
-      'cases profile rain .'
-      'about profile pressure .'
-      'about profile viz .'
-      'about profile tide .'
-      'followme followme followme followme'
-      'poweredby poweredby poweredby poweredby'
+      'banner'
+      'tide'
+      'light'
+      'temperature'
+      'wind'
+      'rain'
+      'pressure'
+      'viz'
+      'poweredby'
   }
 }
 
@@ -76,14 +82,14 @@ body {
     justify-items: start;
     grid-gap: 1px;
     grid-template-areas:
-      'tagline tagline light' 
-      'about profile temperature'
-      'about profile wind'
-      'about profile rain'
-      'about profile pressure'
-      'about profile viz'
-      'cases profile tide'
-      'followme poweredby .'
+      'banner'
+      'tide light'
+      'tide temperature'
+      'tide wind'
+      'tide rain'
+      'tide pressure'
+      'tide viz'
+      'poweredby'
   }
 }
 
@@ -93,17 +99,15 @@ body {
     justify-items: center;
     grid-gap: 5px;
     grid-template-areas:
-    	'. tagline tagline .'
-    	'. tide light .'
-    	'. tide wind .'
-    	'. tide temperature .'
-    	'. tide viz .'
-    	'. tide rain .'
-    	'. tide pressure .'
-      '. about about .' 
-      '. profile profile .'
-      '. cases cases .'  
-      '. followme poweredby .';
+      'banner'
+      'tide'
+      'light'
+      'temperature'
+      'wind'
+      'rain'
+      'pressure'
+      'viz'
+      'poweredby'
     background-size: 2000% 4000%;
   }
 }
