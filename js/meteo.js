@@ -1,3 +1,35 @@
+// globals
+let lng = '';
+let lat = '';
+// weather-specific globals
+const meteoUrl = 'https://api.open-meteo.com/v1/forecast';
+const deviceLocation = getGeoLocation();
+const meteoParameters = {
+	latitude: lat,
+	longitude: lng,
+	temperature_unit: 'fahrenheit',
+	wind_speed_unit: 'mph',
+	precipitation_unit: 'inch',
+	timezone: 'America/New_York',
+	current: 'temperature_2m,is_day,precipitation,pressure_msl,surface_pressure,wind_speed_10m,wind_direction_10m,wind_gusts_10m',
+	hourly: 'temperature_2m,relative_humidity_2m,precipitation_probability,pressure_msl,surface_pressure,cloud_cover,visibility',
+	daily: 'sunrise,sunset,daylight_duration,uv_index_max,precipitation_probability_max'
+};
+//tides-specific globals
+const noaaUrl = 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter';
+const parameters = {
+  station: '8638445',
+  date: 'today',
+  product: 'predictions',
+  datum: 'MLLW',
+  time_zone: 'lst_ldt',
+  interval: 'hilo',
+  units: 'english',
+  application: 'declared_space',
+  format: 'json'
+};
+
+// basic wrapper for fetch
 function fetchDataFromAPI(baseUrl, urlParams, options = {}) {
   const searchParams = new URLSearchParams(urlParams);
   const url = `${baseUrl}?${searchParams.toString()}`;
@@ -12,9 +44,7 @@ function fetchDataFromAPI(baseUrl, urlParams, options = {}) {
   return data;
 }
 
-const lat = '';
-const lng = '';
-
+//device location request
 function getGeoLocation() {
 	// Check if geolocation is supported by the browser
 	if ("geolocation" in navigator) {
@@ -34,25 +64,6 @@ function getGeoLocation() {
 		console.error("Geolocation is not supported by this browser.");
 	}
 }
-
-const meteoUrl = 'https://api.open-meteo.com/v1/forecast?';
-
-const deviceLocation = getGeoLocation();
-
-const meteoParameters = {
-	latitude: lat,
-	longitude: lng,
-	temperature_unit: 'fahrenheit',
-	wind_speed_unit: 'mph',
-	precipitation_unit: 'inch',
-	timezone: 'America/New_York',
-	current: 'temperature_2m,is_day,precipitation,pressure_msl,surface_pressure,wind_speed_10m,wind_direction_10m,wind_gusts_10m',
-	hourly: 'temperature_2m,relative_humidity_2m,precipitation_probability,pressure_msl,surface_pressure,cloud_cover,visibility',
-	daily: 'sunrise,sunset,daylight_duration,uv_index_max,precipitation_probability_max'
-};
-
-const meteoUrlParameters = new URLSearchParams(meteoParameters);
-const meteoCall = `${meteoUrl}?${meteoUrlParameters}`;
 
 function meteoWeatherData() {
   console.log('calling openMeteo api');
@@ -145,20 +156,6 @@ document.addEventListener('DOMContentLoaded', function() {
  * nn_station = 8638610
  * TODO find an api for this url: https://waterdata.usgs.gov/monitoring-location/02042770/#parameterCode=62620&period=P7D&showMedian=true
  */ 
-const url = 'https://api.tidesandcurrents.noaa.gov/api/prod/datagetter';
-const updateInterval = 60 * 60 * 1000;
-
-const parameters = {
-  station: '8638445',
-  date: 'today',
-  product: 'predictions',
-  datum: 'MLLW',
-  time_zone: 'lst_ldt',
-  interval: 'hilo',
-  units: 'english',
-  application: 'declared_space',
-  format: 'json'
-};
 
 const urlParameters = new URLSearchParams(parameters);
 
