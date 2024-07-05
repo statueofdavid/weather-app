@@ -1,3 +1,4 @@
+import fetchDataFromAPI from './api.js';
 /*
  * https://tidesandcurrents.noaa.gov/web_services_info.html
  * https://www.ncdc.noaa.gov/cdo-web/

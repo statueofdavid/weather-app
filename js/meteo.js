@@ -1,8 +1,13 @@
+import fetchDataFromAPI from './api.js';
+import getGeolocation from './deviceLocation.js';
+
 const meteoUrl = 'https://api.open-meteo.com/v1/forecast?';
 
+const location = getGeoLocation();
+
 const meteoParameters = {
-	latitude: '37.248096',
-	longitude: '-76.791190',
+	latitude: location.latitude,
+	longitude: location.longtitude,
 	temperature_unit: 'fahrenheit',
 	wind_speed_unit: 'mph',
 	precipitation_unit: 'inch',
@@ -13,20 +18,18 @@ const meteoParameters = {
 };
 
 const meteoUrlParameters = new URLSearchParams(meteoParameters);
+const meteoCall = `${meteoUrl}?${meteoUrlParameters}`;
 
-function meteoWeatherData() {
+async function meteoWeatherData() {
   console.log('calling openMeteo api');
+  
+  const meteoData = fetchDataFromAPI(meteoCall);	
 
-  return fetch(meteoUrl + meteoUrlParameters)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      console.log(data);
-      let temp = data.current.temperature_2m;
-      let tempUnits = data.current_units.temperature_2m;
+  console.log(meteoData);
+  let temp = meteoData.current.temperature_2m;
+  let tempUnits = meteoData.current_units.temperature_2m;
 
-      let uv = Math.floor(data.daily.uv_index_max[0]);
+      let uv = Math.floor(meteoData.daily.uv_index_max[0]);
       let burnRisk = '';
 
       if(uv < 3) {
@@ -42,22 +45,22 @@ function meteoWeatherData() {
       document.querySelector('.temperature').innerHTML = 
 	`<span>${temp}${tempUnits}, UV Index Max: ${uv} (${burnRisk})</span>`;
 
-      let precipitationPredictionToday = data.daily.precipitation_probability_max[0];
-      let precipit = data.current.preciptiation;
+      let precipitationPredictionToday = meteoData.daily.precipitation_probability_max[0];
+      let precipit = meteoData.current.preciptiation;
       let isLikelyPercipit = false;
-      let pressure = data.current.pressure_msl;
+      let pressure = meteoData.current.pressure_msl;
 
       if(precipit > 0) {
         isLikelyPercipit = true;
       }
 
       let currentHour = new Date().getHours();
-      let pressureUnits = data.current_units.pressure_msl;
+      let pressureUnits = meteoData.current_units.pressure_msl;
 
-      let precipitationPredictionHourly = data.hourly.precipitation_probability[currentHour];
-      let relativeHumidity = data.hourly.relative_humidity_2m[currentHour];
-      let clouds = data.hourly.cloud_cover[currentHour];
-      let viz = Math.floor(data.hourly.visibility[currentHour] / 5280);
+      let precipitationPredictionHourly = meteoData.hourly.precipitation_probability[currentHour];
+      let relativeHumidity = meteoData.hourly.relative_humidity_2m[currentHour];
+      let clouds = meteoData.hourly.cloud_cover[currentHour];
+      let viz = Math.floor(meteoData.hourly.visibility[currentHour] / 5280);
       
       document.querySelector('.rain').innerHTML = 
         `<span>Currently Raining: ${isLikelyPercipit}, Rain Likely: ${precipitationPredictionHourly}%</span>`;
@@ -75,19 +78,19 @@ function meteoWeatherData() {
         "SSW", "SW", "WSW",
         "WNW", "NW", "NNW"];
       
-      let windDegrees = data.current.wind_direction_10m;
-      let windSpeed = data.current.wind_speed_10m;
-      let windGusts = data.current.wind_gusts_10m;
+      let windDegrees = meteoData.current.wind_direction_10m;
+      let windSpeed = meteoData.current.wind_speed_10m;
+      let windGusts = meteoData.current.wind_gusts_10m;
 
-      let speedUnits = data.current_units.wind_speed_10m;
+      let speedUnits = meteoData.current_units.wind_speed_10m;
       let windDirection = cardinalDirections[Math.floor(windDegrees / 22.5)];
 
       document.querySelector('.wind').innerHTML = 
         `<span>${windDirection} at ${windSpeed} ${speedUnits} gusting at ${windGusts} ${speedUnits}</span>`;
 
-      let daylight = Math.floor(data.daily.daylight_duration[0] / 60 / 60);
-      let sunrise = new Date(data.daily.sunrise[0]).toLocaleString("en-US", {hour: '2-digit', minute: '2-digit'});
-      let sunset = new Date(data.daily.sunset[0]).toLocaleString("en-US", {hour: '2-digit', minute: '2-digit'});
+      let daylight = Math.floor(meteoData.daily.daylight_duration[0] / 60 / 60);
+      let sunrise = new Date(meteoData.daily.sunrise[0]).toLocaleString("en-US", {hour: '2-digit', minute: '2-digit'});
+      let sunset = new Date(meteoData.daily.sunset[0]).toLocaleString("en-US", {hour: '2-digit', minute: '2-digit'});
         
       document.querySelector('.light').innerHTML =
 	`<span>Sunrise: ${sunrise}, Sunset: ${sunset}, Daylight: ${daylight} hours</span>`;
