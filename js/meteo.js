@@ -1,20 +1,21 @@
-async function fetchDataFromAPI(baseUrl, urlParams, options = {}) {
+function fetchDataFromAPI(baseUrl, urlParams, options = {}) {
   const searchParams = new URLSearchParams(urlParams);
   const url = `${baseUrl}?${searchParams.toString()}`;
 
-  const response = await fetch(url, options);
+  const response = fetch(url, options);
 
   if (!response.ok) {
     throw new Error(`API request failed with status: ${response.status}`);
   }
 
-  const data = await response.json();
+  const data = response.json();
   return data;
 }
 
-export default fetchDataFromAPI;
+const lat = '';
+const lng = '';
 
-function getGeolocation() {
+function getGeoLocation() {
 	// Check if geolocation is supported by the browser
 	if ("geolocation" in navigator) {
   		const options = {
@@ -23,9 +24,9 @@ function getGeolocation() {
     		maximumAge: 0
   	};  
 		navigator.geolocation.getCurrentPosition((position) => {
-			const lat = position.coords.latitude;
-			const lng = position.coords.longitude;
-			console.log(`Latitude: ${lat}, longitude: ${lng}`);
+			lat = position.coords.latitude;
+			lng = position.coords.longitude;
+			console.log(`latitude: ${lat}, longitude: ${lng}`);
 		}, (error) => {
 			console.error("Error getting user location:", error);
 		}, options);
@@ -36,11 +37,11 @@ function getGeolocation() {
 
 const meteoUrl = 'https://api.open-meteo.com/v1/forecast?';
 
-const location = getGeoLocation();
+const deviceLocation = getGeoLocation();
 
 const meteoParameters = {
-	latitude: location.latitude,
-	longitude: location.longtitude,
+	latitude: lat,
+	longitude: lng,
 	temperature_unit: 'fahrenheit',
 	wind_speed_unit: 'mph',
 	precipitation_unit: 'inch',
@@ -53,10 +54,10 @@ const meteoParameters = {
 const meteoUrlParameters = new URLSearchParams(meteoParameters);
 const meteoCall = `${meteoUrl}?${meteoUrlParameters}`;
 
-async function meteoWeatherData() {
+function meteoWeatherData() {
   console.log('calling openMeteo api');
   
-  const meteoData = fetchDataFromAPI(meteoCall);	
+  const meteoData = fetchDataFromAPI(meteoUrl, meteoParameters);	
 
   console.log(meteoData);
   let temp = meteoData.current.temperature_2m;
@@ -127,15 +128,11 @@ async function meteoWeatherData() {
         
       document.querySelector('.light').innerHTML =
 	`<span>Sunrise: ${sunrise}, Sunset: ${sunset}, Daylight: ${daylight} hours</span>`;
-    })
 }
       
 document.addEventListener('DOMContentLoaded', function() {
   meteoWeatherData();
 })
-setInterval(meteoWeatherData, updateInterval);
-
-import fetchDataFromAPI from './api.js';
 /*
  * https://tidesandcurrents.noaa.gov/web_services_info.html
  * https://www.ncdc.noaa.gov/cdo-web/
@@ -194,4 +191,3 @@ function noaaTidePrediction() {
 document.addEventListener('DOMContentLoaded', function() {
   noaaTidePrediction();
 })
-setInterval(noaaTidePrediction, updateInterval);
