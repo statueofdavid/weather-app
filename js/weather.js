@@ -112,7 +112,7 @@ async function getGeoLocation() {
       }, 2000);
       
       refreshButton.disabled = false;
-      refreshButton.textContent = "";
+      refreshButton.textContent = "Refresh Using Your Device Location";
 		}, options);
 	} else {
 		console.error("Geolocation is not supported by this browser.");
