@@ -39,6 +39,11 @@
 .button:active {
  	border-top-color: #1b435e;
 	background: #1b435e;
-  transform: translateY(2px);
+  transform: translateY(-2px);
 }
 
+@media (max-width: 550px) {
+  .button {
+    font-size: 0.95em;
+  }
+}

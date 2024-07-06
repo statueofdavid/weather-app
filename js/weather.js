@@ -12,27 +12,8 @@
  */ 
 
 // globals
-let lng = '';
-let lat = '';
-let refreshButton = '';
-// this makes me rethink using pure javascript... what is pure js anyway... ugh
-document.addEventListener("DOMContentLoaded", function() {
-  refreshButton = document.getElementById("refresh");
-  console.log(refreshButton);
-  
-  refreshButton.addEventListener("click", function() {
-    console.log("refreshing...");
-    getGeoLocation();
-  });
-
-  refreshButton.addEventListener("mouseup", function() {
-    refreshButton.classList.remove(":active"); // Remove active state on mouseup
-  }); 
-});
-
-
-// weather-specific globals
-const deviceLocation = getGeoLocation();
+let lng, lat = '';
+let refreshButton = {};
 const meteoUrl = 'https://api.open-meteo.com/v1/forecast';
 const meteoParameters = {
 	latitude: lat,
@@ -59,6 +40,18 @@ const noaaParameters = {
   format: 'json'
 };
 
+// this makes me rethink using pure javascript... what is pure js anyway... ugh, its a bit of mess but hella fun to use for prototyping
+  document.addEventListener("DOMContentLoaded", function() {
+  refreshButton = document.getElementById("refresh");
+  refreshButton.addEventListener("click", function() {
+    console.log("refreshing...");
+    getGeoLocation();
+  });
+
+  refreshButton.addEventListener("mouseup", function() {
+    refreshButton.classList.remove(":active"); // Remove active state on mouseup
+  });
+});
 
 // basic wrapper for fetch
 function fetchDataFromAPI(baseUrl, urlParams) {
@@ -101,9 +94,9 @@ async function getGeoLocation() {
 
       noaaTidePrediction();
       meteoWeatherData(lat, lng);
+      
       refreshButton.disabled = false;
-      refreshButton.textContent = "Refresh Using Your Device Location";
-
+      refreshButton.textContent = "Refresh For Updated Predictions";
 		}, (error) => {
 			console.error("Error getting user location:", error);
       

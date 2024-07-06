@@ -25,3 +25,9 @@
     width: 100vw;
   }
 }
+
+@media (max-width: 500px) {
+  .button-poweredby {
+    font-size: 0.85em;
+  }
+}
