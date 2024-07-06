@@ -20,8 +20,9 @@
    font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
    text-decoration: none;
    vertical-align: middle;
-  align-content: center;
-   }
+   align-content: center;
+   transition: transform 0.2s ease-in-out;  
+}
 .button:hover {
    background: #7f65d6;
    background: -webkit-gradient(linear, left top, left bottom, from(#7f65d6), to(#c49520));
@@ -38,5 +39,6 @@
 .button:active {
  	border-top-color: #1b435e;
 	background: #1b435e;
+  transform: translateY(2px);
 }
 

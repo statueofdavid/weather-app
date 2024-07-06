@@ -14,6 +14,23 @@
 // globals
 let lng = '';
 let lat = '';
+let refreshButton = '';
+// this makes me rethink using pure javascript... what is pure js anyway... ugh
+document.addEventListener("DOMContentLoaded", function() {
+  refreshButton = document.getElementById("refresh");
+  console.log(refreshButton);
+  
+  refreshButton.addEventListener("click", function() {
+    console.log("refreshing...");
+    getGeoLocation();
+  });
+
+  refreshButton.addEventListener("mouseup", function() {
+    refreshButton.classList.remove(":active"); // Remove active state on mouseup
+  }); 
+});
+
+
 // weather-specific globals
 const deviceLocation = getGeoLocation();
 const meteoUrl = 'https://api.open-meteo.com/v1/forecast';
@@ -68,7 +85,8 @@ function fetchDataFromAPI(baseUrl, urlParams) {
 
 //device location request
 async function getGeoLocation() {
-  console.log('getting location...');
+  refreshButton.disabled = true;
+  refreshButton.textContent = "Retrieving Location...";
 	// Check if geolocation is supported by the browser
 	if ("geolocation" in navigator) {
   		const options = {
@@ -83,9 +101,18 @@ async function getGeoLocation() {
 
       noaaTidePrediction();
       meteoWeatherData(lat, lng);
+      refreshButton.disabled = false;
+      refreshButton.textContent = "Refresh Using Your Device Location";
 
 		}, (error) => {
 			console.error("Error getting user location:", error);
+      
+      setTimeout(function() {
+        refreshButton.textContent = "There was an error, try again soon";
+      }, 2000);
+      
+      refreshButton.disabled = false;
+      refreshButton.textContent = "";
 		}, options);
 	} else {
 		console.error("Geolocation is not supported by this browser.");
@@ -201,3 +228,5 @@ async function noaaTidePrediction() {
     console.error("Something happened with the noaa call", error);
   }
 }
+
+

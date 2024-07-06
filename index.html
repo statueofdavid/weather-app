@@ -2,7 +2,7 @@
 
 <html lang="en">
   <head>
-    <title>📣weather</title>
+    <title>Get Weather and Tide Info</title>
     <link rel="icon" type="image/x-icon" href="./images/favicon.ico"> 
     <meta name="description" content="weather info from open meteo and tide info from noaa.">
     <meta charset="UTF-16">
@@ -19,13 +19,11 @@
     <link rel="stylesheet" href="./css/rain.css">
     <link rel="stylesheet" href="./css/viz.css">
     <link rel="stylesheet" href="./css/wind.css">
-<script src="./js/weather.js"></script>
   </head>
     <body>
       <div class="banner">
-        <span>A Weather Info Provider</span>
         <a href="https://declared.space/passion.html" class="copyright-brand">© 2024 declared space studio 📣</a> 
-        <button class="refresh button">Refresh Using Your Device Location</button>
+        <button id="refresh" class="button">Refresh Using Your Device Location</button>
       </div>
       <div class="tide"></div>
       <div class="temperature"></div>
@@ -37,7 +35,7 @@
 	    <div class="poweredby">
 		    <h3 class="header-poweredby">Powered by</h3>
 		    <nav>
-      	  		<a href="https://www.nginx.com/" target="_blank" rel="noopener noreferrer" class="button button-poweredby">NGINX</a>
+      	  		<a href="https://www.nginx.org/" target="_blank" rel="noopener noreferrer" class="button button-poweredby">NGINX</a>
       			<a href="https://www.w3.org/" target="_blank" rel="noopener noreferrer" class="button button-poweredby">W3</a>
 		 	<a href="https://digitalocean.com/" target="_blank" rel="noopener noreferrer" class="button button-poweredby">DigitalOcean</a>
       			<a href="https://www.eff.org/" target="_blank" rel="noopener noreferrer" class="button button-poweredby">EFF</a>
@@ -45,5 +43,6 @@
       			<a href="https://www.open-meteo.com/" target="_blank" rel="noopener noreferrer" class="button button-poweredby">Open-Meteo</a>
         </nav>
 	    </div>
+      <script src="./js/weather.js"></script>
     </body>
 </html>
