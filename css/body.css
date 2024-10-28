@@ -46,7 +46,6 @@ body {
     justify-items: center;
     grid-gap: 5px;
     grid-template-areas:
-      'banner'
       'tide'
       'light'
       'temperature'
@@ -54,6 +53,7 @@ body {
       'rain'
       'pressure'
       'viz'
+      'banner'
       'poweredby'
   }
 }
@@ -61,10 +61,9 @@ body {
 @media (max-width: 2000px) {
   body {
     overflow: hidden;
-    justify-items: start;
+    justify-items: center;
     grid-gap: 3px;
     grid-template-areas:
-      'banner'
       'tide'
       'light'
       'temperature'
@@ -72,6 +71,7 @@ body {
       'rain'
       'pressure'
       'viz'
+      'banner'
       'poweredby'
   }
 }
@@ -82,13 +82,13 @@ body {
     justify-items: start;
     grid-gap: 1px;
     grid-template-areas:
-      'banner'
       'tide light'
       'tide temperature'
       'tide wind'
       'tide rain'
       'tide pressure'
       'tide viz'
+      'banner'
       'poweredby'
   }
 }
@@ -99,7 +99,6 @@ body {
     justify-items: center;
     grid-gap: 5px;
     grid-template-areas:
-      'banner'
       'tide'
       'light'
       'temperature'
@@ -107,6 +106,7 @@ body {
       'rain'
       'pressure'
       'viz'
+      'banner'
       'poweredby'
     background-size: 2000% 4000%;
   }

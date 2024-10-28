@@ -1,4 +1,5 @@
 .light {
+  display: none;
   grid-area: light;
   width: 20vw;
   border: 2px solid #7D12FF;

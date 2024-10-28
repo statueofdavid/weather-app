@@ -1,6 +1,6 @@
 .banner {
   grid-area: banner;
-  align-items: center;
+  place-items: center;
   width: 100vw;
   border: 2px solid #7D12FF;
   padding: 1%;

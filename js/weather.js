@@ -138,7 +138,10 @@ async function meteoWeatherData(latitude, longitude) {
       burnRisk = 'extreme';
     }
       
-    document.querySelector('.temperature').innerHTML = 
+    const temperatureElement = document.querySelector('.temperature');
+
+    temperatureElement.style.display = "block";
+    temperatureElement.innerHTML = 
 	    `<span>${temp}${tempUnits}, UV Index Max: ${uv} (${burnRisk})</span>`;
 
     let precipitationPredictionToday = meteoData.daily.precipitation_probability_max[0];
@@ -157,14 +160,23 @@ async function meteoWeatherData(latitude, longitude) {
     let relativeHumidity = meteoData.hourly.relative_humidity_2m[currentHour];
     let clouds = meteoData.hourly.cloud_cover[currentHour];
     let viz = Math.floor(meteoData.hourly.visibility[currentHour] / 5280);
-      
-    document.querySelector('.rain').innerHTML = 
+	  
+    const rainElement = document.querySelector('.rain');
+    
+    rainElement.style.display = "block";
+    rainElement.innerHTML = 
       `<span>Currently Raining: ${isLikelyPercipit}, Rain Likely: ${precipitationPredictionHourly}%</span>`;
       
-    document.querySelector('.viz').innerHTML = 
+    const vizElement = document.querySelector('.viz');
+
+    vizElement.style.display = "none";
+    vizElement.innerHTML = 
 	    `<span>Visibility: ${viz} miles, Cloud Coverage: ${clouds}%</span>`;
       
-    document.querySelector('.pressure').innerHTML = 
+    const pressureElement = document.querySelector('.pressure');
+
+    pressureElement.style.display = "block";
+    pressureElement.innerHTML = 
 	    `<span>Pressure: ${pressure} ${pressureUnits}, Humidity: ${relativeHumidity}%</span>`;
 
     const cardinalDirections = [
@@ -181,14 +193,20 @@ async function meteoWeatherData(latitude, longitude) {
     let speedUnits = meteoData.current_units.wind_speed_10m;
     let windDirection = cardinalDirections[Math.floor(windDegrees / 22.5)];
 
-    document.querySelector('.wind').innerHTML = 
+    const windElement = document.querySelector('.wind');
+
+    windElement.style.display = "block";
+    windElement.innerHTML = 
         `<span>${windDirection} at ${windSpeed} ${speedUnits} gusting at ${windGusts} ${speedUnits}</span>`;
 
     let daylight = Math.floor(meteoData.daily.daylight_duration[0] / 60 / 60);
     let sunrise = new Date(meteoData.daily.sunrise[0]).toLocaleString("en-US", {hour: '2-digit', minute: '2-digit'});
     let sunset = new Date(meteoData.daily.sunset[0]).toLocaleString("en-US", {hour: '2-digit', minute: '2-digit'});
         
-    document.querySelector('.light').innerHTML =
+    const lightElement = document.querySelector('.light')
+
+    lightElement.style.display = "block";
+    lightElement.innerHTML =
 	      `<span>Sunrise: ${sunrise}, Sunset: ${sunset}, Daylight: ${daylight} hours</span>`;
   } catch(error) {
     console.error("Something happened with the meteo call", error);
@@ -215,7 +233,11 @@ async function noaaTidePrediction() {
     }
 
     content += '<span>provided by NOAA<span>';
-    document.querySelector('.tide').innerHTML = content;
+    
+    const tideElement = document.querySelector('.tide')
+
+    tideElement.style.display = "block";
+    tideElement.innerHTML = content;
   
   } catch(error) {
     console.error("Something happened with the noaa call", error);
