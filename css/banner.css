@@ -1,7 +1,11 @@
 .banner {
   grid-area: banner;
-  place-items: center;
-  width: 100vw;
+  flex-flow: row nowrap;
+  justify-content: space-between;
   border: 2px solid #7D12FF;
   padding: 1%;
+}
+
+label {
+transform: scale(10);
 }

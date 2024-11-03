@@ -1,9 +1,5 @@
 /* https://developer.mozilla.org/en-US/docs/Web/CSS/border-radius */
 /* https://css-tricks.com/examples/ButtonMaker/# */
-.location {
-  width: 92vw;
-}
-
 .button {
    border: 1px solid #080808;
    background: #7f65d6;

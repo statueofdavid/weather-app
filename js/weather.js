@@ -96,7 +96,7 @@ async function getGeoLocation() {
       meteoWeatherData(lat, lng);
       
       refreshButton.disabled = false;
-      refreshButton.textContent = "Refresh For Updated Predictions";
+      refreshButton.textContent = "Get An Update";
 		}, (error) => {
 			console.error("Error getting user location:", error);
       
