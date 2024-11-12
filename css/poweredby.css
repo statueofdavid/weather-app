@@ -1,6 +1,7 @@
 .poweredby {
-  grid-area: poweredby;
-  width: 100%;
+  position: absolute;
+  bottom: 30px;
+  display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;
 
@@ -11,7 +12,6 @@
 }
 
 .copyright-brand {
-  text-align: right;
   margin: 1em 0 auto 0;
 }
 

@@ -12,6 +12,10 @@
  */ 
 
 // globals
+const DB_NAME = 'weather';
+const DB_VERSION = 1;
+const DB_STORE_METEO = 'meteo';
+
 let lng, lat = '';
 let refreshButton = {};
 const meteoUrl = 'https://api.open-meteo.com/v1/forecast';
@@ -36,9 +40,64 @@ const noaaParameters = {
   time_zone: 'lst_ldt',
   interval: 'hilo',
   units: 'english',
-  application: 'declared_space',
+  application: 'weather_declared_space',
   format: 'json'
 };
+
+const bodyElement = document.body;
+bodyElement.style.height = "100vh";
+bodyElement.style.position = "grid";
+bodyElement.style.overflow = "clip";
+
+const poweredByHeaderElement = document.getElementsByClassName("header-poweredby")[0];
+
+const viewPort = window.innerHeight;
+
+console.log(`${bodyElement}, ${poweredByHeaderElement}`);
+
+const resizeWidthObserver = new ResizeObserver(entries => {
+  console.log("viewport changed");
+  checkWidth();
+  checkHeight();
+});
+
+resizeWidthObserver.observe(bodyElement);
+
+function checkHeight() {
+  console.log(`checking height`);
+  if(window.matchMedia("(min-height: 1201px)").matches) {
+  } else if(window.matchMedia("(max-height: 1200px)").matches) {
+  } else if(window.matchMedia("(max-height: 1050px)").matches) {
+  } else if(window.matchMedia("(max-height: 650px)").matches) {
+  } else if(window.matchMedia("(max-height: 450px)").matches) {
+  } else { console.log(`shit`);}
+
+}
+
+function checkWidth() {
+  console.log(`checking width`);
+  if(window.matchMedia("(min-width: 2001px)").matches) {
+    bodyElement.style.overflow = "hidden";
+    bodyElement.style.justifyItems = "center";
+    bodyElement.style.gridGap = "5px";
+    bodyElement.style.gridTemplateAreas = '"tide" "temperature" "rain" "viz" "pressure" "wind" "light"';
+  } else if(window.matchMedia("(max-width: 2000px)").matches) {
+    bodyElement.style.overflow = "hidden";
+    bodyElement.style.justifyItems = "center";
+    bodyElement.style.gridGap = "5px";
+    bodyElement.style.gridTemplateAreas = '"tide" "temperature" "rain" "viz" "pressure" "wind" "light"';
+  } else if(window.matchMedia("(max-width: 1300px)").matches) {
+    bodyElement.style.overflow = "hidden";
+    bodyElement.style.justifyItems = "center";
+    bodyElement.style.gridGap = "5px";
+    bodyElement.style.gridTemplateAreas = '"tide" "temperature" "rain" "viz" "pressure" "wind" "light"';
+  } else if(window.matchMedia("(max-width: 1050px)").matches) {
+    bodyElement.style.overflow = "scroll";
+    bodyElement.style.justifyItems = "center";
+    bodyElement.style.gridGap = "5px";
+    bodyElement.style.gridTemplateAreas = '"tide" "temperature" "rain" "viz" "pressure" "wind" "light"';
+  }
+}
 
 // this makes me rethink using pure javascript... what is pure js anyway... ugh, its a bit of mess but hella fun to use for prototyping
   document.addEventListener("DOMContentLoaded", function() {
@@ -52,6 +111,22 @@ const noaaParameters = {
     refreshButton.classList.remove(":active"); // Remove active state on mouseup
   });
 });
+
+function initScheme() {}
+
+// if I want the client to  manage the data obtained, I need a store so the client can more easily manage it
+function setupClientStore(name, version) {
+  let request = indexedDB.open(name, version);
+
+  request.onupgradeneeded = function(event) {
+    if (event.oldVersion < 1) {
+      initScheme();
+    } else if (event.oldVersion < dbVersion){
+      console.error(``);
+    }
+  }
+    
+}
 
 // basic wrapper for fetch
 function fetchDataFromAPI(baseUrl, urlParams) {
@@ -169,7 +244,7 @@ async function meteoWeatherData(latitude, longitude) {
       
     const vizElement = document.querySelector('.viz');
 
-    vizElement.style.display = "none";
+    vizElement.style.display = "block";
     vizElement.innerHTML = 
 	    `<span>Visibility: ${viz} miles, Cloud Coverage: ${clouds}%</span>`;
       
@@ -191,7 +266,7 @@ async function meteoWeatherData(latitude, longitude) {
     let windGusts = meteoData.current.wind_gusts_10m;
 
     let speedUnits = meteoData.current_units.wind_speed_10m;
-    let windDirection = cardinalDirections[Math.floor(windDegrees / 22.5)];
+    let windDirection = cardinalDirections[Math.floor(windDegrees / 22.5)-1];
 
     const windElement = document.querySelector('.wind');
 

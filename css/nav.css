@@ -1,6 +1,7 @@
 nav {
   margin: 1vw;
-  gap: 1vw;
+  gap: 2vw;
   display: flex;
   flex-flow: row wrap;
+  justify-content: center;
 }
