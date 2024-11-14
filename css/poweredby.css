@@ -1,6 +1,7 @@
 .poweredby {
   position: absolute;
   bottom: 30px;
+  left: 18px;
   display: flex;
   flex-flow: column nowrap;
   justify-content: space-between;

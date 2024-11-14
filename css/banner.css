@@ -1,7 +1,7 @@
 .banner {
   position: absolute;
-  top: 70vh;
-  left: 20vw;
+  top: 65vh;
+  left: 18px;
   flex-flow: row nowrap;
   justify-content: space-between;
 }
